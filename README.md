@@ -1,6 +1,6 @@
 # Resnet Trainable Activation Function
 ex) CosLU, ShiLU ...<br>
-논문 명 : Trainable Activations for Image Classification  <br>
+* 논문 명 : Trainable Activations for Image Classification  <br>
 ## 1) Resnet-20 & CosLU  
 논문 구현 결과는 implement에 구현하였습니다.
 Max Accuracy : 0.899  
