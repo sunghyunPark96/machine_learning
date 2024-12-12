@@ -13,7 +13,7 @@ Papaer Accuracy : 0.904
 
 ## 2) Resnet-8 & CosLU & Patch-embedding & Convmixer-Layer  
 모델 개선 코드는 improve에 구현하였습니다.  
-![convmixer](https://github.com/user-attachments/assets/91dcb285-94c3-4ed7-ab74-ca1919ee0a75)
+![convmixer](https://github.com/user-attachments/assets/91dcb285-94c3-4ed7-ab74-ca1919ee0a75)  
 ![convmixer_Layer](https://github.com/user-attachments/assets/ea18f21b-dab7-47b1-bbc1-3054ff9aaceb)  
 ![patch_embedding](https://github.com/user-attachments/assets/973dbaf3-d1ac-4172-81d2-cedd4a8601cd)  
 ![resnet_class](https://github.com/user-attachments/assets/f1094aca-f9a1-4510-9b92-ba27cb1cb5f6)  
