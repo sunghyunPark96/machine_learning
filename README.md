@@ -16,8 +16,7 @@ python test.py --config configs/coslu/cifar10/resnet20.yaml
 </div>
 
 python train.py --model ResNet-20 --activation CosLU
-3) Resnet-8 & CosLU & Patch-embedding & Convmixer-Layer
-모델 개선 코드는 improve에 구현하였습니다.  
+3) Resnet-8 & CosLU & Patch-embedding & Convmixer-Layer 모델 개선 코드는 improve에 구현하였습니다.  
 <div style="position: relative;">
   <pre>
     <code id="code-block">
