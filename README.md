@@ -2,9 +2,9 @@
 * 논문 명 : Trainable Activations for Image Classification  <br>
 ex) CosLU, ShiLU ...<br>
 ## 1) Resnet-20 & CosLU  
-논문 구현 결과는 implement에 구현하였습니다.
-Max Accuracy : 0.899  
-Papaer Accuracy : 0.904  
+논문 구현 결과는 implement에 구현하였습니다.<br>
+Max Accuracy : 0.899<br>
+Papaer Accuracy : 0.904<br> 
 <br>
 ![TEST](https://github.com/user-attachments/assets/5b40b0cd-052d-4c3f-a6ff-ef46002fa2d0)  
 
@@ -14,8 +14,7 @@ Papaer Accuracy : 0.904
 </div>  
 
 ## 2) Resnet-8 & CosLU & Patch-embedding & Convmixer-Layer  
-모델 개선 코드는 improve에 구현하였습니다.
-<br>
+모델 개선 코드는 improve에 구현하였습니다.<br>
 ![convmixer](https://github.com/user-attachments/assets/91dcb285-94c3-4ed7-ab74-ca1919ee0a75)  
 ![convmixer_Layer](https://github.com/user-attachments/assets/ea18f21b-dab7-47b1-bbc1-3054ff9aaceb)  
 ![patch_embedding](https://github.com/user-attachments/assets/973dbaf3-d1ac-4172-81d2-cedd4a8601cd)  
