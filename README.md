@@ -17,16 +17,6 @@ Papaer Accuracy : 0.904
 <code id="code2">python test.py --config configs/coslu/cifar10/resnet8_convmixer.yaml</code>
 <button onclick="copyToClipboard('code2')" style="position: absolute; top: 5px; right: 10px; background: #007bff; color: white; border: none; border-radius: 4px; padding: 5px; cursor: pointer;">
 </div>
-   
-참조 링크 : https://github.com/epishchik/TrainableActivation  
 
-<script>
-  function copyToClipboard(id) {
-    var copyText = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(copyText).then(() => {
-      alert('Copied to clipboard!');
-    }).catch(err => {
-      alert('Failed to copy text: ', err);
-    });
-  }
-</script>
+   
+참조 링크 : https://github.com/epishchik/TrainableActivation 
