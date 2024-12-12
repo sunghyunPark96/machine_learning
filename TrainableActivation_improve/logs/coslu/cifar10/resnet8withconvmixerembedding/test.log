@@ -1,0 +1,750 @@
+2024-12-12 23:47:09,812 | INFO | 
+model:
+  name: ResNet8WithConvMixerEmbedding
+  architecture:
+    in_channels: 3
+    out_channels: 10
+    activation: CosLU
+    patch_size: 1
+    depth: 4
+    kernel_size: 3
+optimizer:
+  name: SGD
+  parameters:
+    lr: 0.1
+    weight_decay: 0.0001
+    momentum: 0.9
+scheduler:
+  num: 1
+  scheduler0:
+    name: MultiStepLR
+    parameters:
+      milestones: [45, 65]
+      gamma: 0.1
+dataset:
+  name: CIFAR10
+  batch_size: 128
+  split:
+    train: 0.9
+    valid: 0.1
+    test: 1.0
+train:
+  epochs: 90
+  device: cuda:0
+  save_path: ./checkpoints/coslu/cifar10/
+  log_path: ./logs/coslu/cifar10/
+  seed: 42
+  save_every: 10
+test:
+  device: cuda:0
+  checkpoint: ./checkpoints/coslu/cifar10/
+  log_path: ./logs/coslu/cifar10/
+  seed: 42
+2024-12-12 23:47:09,815 | INFO | 
+ResNet8WithConvMixerEmbedding(
+  Patch Embedding: ConvMixerPatchEmbedding(
+  (patch_embedding): Conv2d(3, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  (bn): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (blocks): Sequential(
+    (0): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (1): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (2): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (3): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+)
+  ResNet Model: ResNetCifar(
+  (conv1): Identity()
+  (layer1): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): Sequential()
+      (relu): CosLU()
+    )
+  )
+  (layer2): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): CosLU()
+    )
+  )
+  (layer3): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): CosLU()
+    )
+  )
+  (fc): Linear(in_features=64, out_features=10, bias=True)
+  (relu): CosLU()
+)
+)
+2024-12-12 23:47:09,819 | INFO | 
+CrossEntropyLoss()
+2024-12-12 23:47:15,328 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=10_lv=0.73.pth test_loss: 0.7390 test_accuracy: 0.759 test_precision: 0.785 test_recall: 0.759 test_f1: 0.758
+2024-12-12 23:47:19,860 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=16_lv=0.64.pth test_loss: 0.6430 test_accuracy: 0.792 test_precision: 0.818 test_recall: 0.792 test_f1: 0.793
+2024-12-12 23:47:23,972 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=1_lv=1.42.pth test_loss: 1.4051 test_accuracy: 0.506 test_precision: 0.567 test_recall: 0.506 test_f1: 0.478
+2024-12-13 00:21:51,668 | INFO | 
+model:
+  name: ResNet8WithConvMixerEmbedding
+  architecture:
+    in_channels: 3
+    out_channels: 10
+    activation: CosLU
+    patch_size: 1
+    depth: 4
+    kernel_size: 3
+optimizer:
+  name: SGD
+  parameters:
+    lr: 0.1
+    weight_decay: 0.0001
+    momentum: 0.9
+scheduler:
+  num: 1
+  scheduler0:
+    name: MultiStepLR
+    parameters:
+      milestones: [45, 65]
+      gamma: 0.1
+dataset:
+  name: CIFAR10
+  batch_size: 128
+  split:
+    train: 0.9
+    valid: 0.1
+    test: 1.0
+train:
+  epochs: 90
+  device: cuda:0
+  save_path: ./checkpoints/coslu/cifar10/
+  log_path: ./logs/coslu/cifar10/
+  seed: 42
+  save_every: 10
+test:
+  device: cuda:0
+  checkpoint: ./checkpoints/coslu/cifar10/
+  log_path: ./logs/coslu/cifar10/
+  seed: 42
+2024-12-13 00:21:51,671 | INFO | 
+ResNet8WithConvMixerEmbedding(
+  Patch Embedding: ConvMixerPatchEmbedding(
+  (patch_embedding): Conv2d(3, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  (bn): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (blocks): Sequential(
+    (0): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (1): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (2): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (3): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+)
+  ResNet Model: ResNetCifar(
+  (conv1): Identity()
+  (layer1): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): Sequential()
+      (relu): CosLU()
+    )
+  )
+  (layer2): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): CosLU()
+    )
+  )
+  (layer3): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): CosLU()
+    )
+  )
+  (fc): Linear(in_features=64, out_features=10, bias=True)
+  (relu): CosLU()
+)
+)
+2024-12-13 00:21:51,675 | INFO | 
+CrossEntropyLoss()
+2024-12-13 00:21:55,863 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=10_lv=0.73.pth test_loss: 0.7390 test_accuracy: 0.759 test_precision: 0.785 test_recall: 0.759 test_f1: 0.758
+2024-12-13 00:22:30,123 | INFO | 
+model:
+  name: ResNet8WithConvMixerEmbedding
+  architecture:
+    in_channels: 3
+    out_channels: 10
+    activation: CosLU
+    patch_size: 1
+    depth: 4
+    kernel_size: 3
+optimizer:
+  name: SGD
+  parameters:
+    lr: 0.1
+    weight_decay: 0.0001
+    momentum: 0.9
+scheduler:
+  num: 1
+  scheduler0:
+    name: MultiStepLR
+    parameters:
+      milestones: [45, 65]
+      gamma: 0.1
+dataset:
+  name: CIFAR10
+  batch_size: 128
+  split:
+    train: 0.9
+    valid: 0.1
+    test: 1.0
+train:
+  epochs: 90
+  device: cuda:0
+  save_path: ./checkpoints/coslu/cifar10/
+  log_path: ./logs/coslu/cifar10/
+  seed: 42
+  save_every: 10
+test:
+  device: cuda:0
+  checkpoint: ./checkpoints/coslu/cifar10/
+  log_path: ./logs/coslu/cifar10/
+  seed: 42
+2024-12-13 00:22:30,126 | INFO | 
+ResNet8WithConvMixerEmbedding(
+  Patch Embedding: ConvMixerPatchEmbedding(
+  (patch_embedding): Conv2d(3, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  (bn): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (blocks): Sequential(
+    (0): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (1): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (2): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (3): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+)
+  ResNet Model: ResNetCifar(
+  (conv1): Identity()
+  (layer1): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): Sequential()
+      (relu): CosLU()
+    )
+  )
+  (layer2): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): CosLU()
+    )
+  )
+  (layer3): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): CosLU()
+    )
+  )
+  (fc): Linear(in_features=64, out_features=10, bias=True)
+  (relu): CosLU()
+)
+)
+2024-12-13 00:22:30,131 | INFO | 
+CrossEntropyLoss()
+2024-12-13 00:22:35,602 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=10_lv=0.73.pth test_loss: 0.7390 test_accuracy: 0.759 test_precision: 0.785 test_recall: 0.759 test_f1: 0.758
+2024-12-13 00:25:13,192 | INFO | 
+model:
+  name: ResNet8WithConvMixerEmbedding
+  architecture:
+    in_channels: 3
+    out_channels: 10
+    activation: CosLU
+    patch_size: 1
+    depth: 4
+    kernel_size: 3
+optimizer:
+  name: SGD
+  parameters:
+    lr: 0.1
+    weight_decay: 0.0001
+    momentum: 0.9
+scheduler:
+  num: 1
+  scheduler0:
+    name: MultiStepLR
+    parameters:
+      milestones: [45, 65]
+      gamma: 0.1
+dataset:
+  name: CIFAR10
+  batch_size: 128
+  split:
+    train: 0.9
+    valid: 0.1
+    test: 1.0
+train:
+  epochs: 90
+  device: cuda:0
+  save_path: ./checkpoints/coslu/cifar10/
+  log_path: ./logs/coslu/cifar10/
+  seed: 42
+  save_every: 10
+test:
+  device: cuda:0
+  checkpoint: ./checkpoints/coslu/cifar10/
+  log_path: ./logs/coslu/cifar10/
+  seed: 42
+2024-12-13 00:25:13,195 | INFO | 
+ResNet8WithConvMixerEmbedding(
+  Patch Embedding: ConvMixerPatchEmbedding(
+  (patch_embedding): Conv2d(3, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  (bn): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (blocks): Sequential(
+    (0): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (1): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (2): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (3): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+)
+  ResNet Model: ResNetCifar(
+  (conv1): Identity()
+  (layer1): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): Sequential()
+      (relu): CosLU()
+    )
+  )
+  (layer2): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): CosLU()
+    )
+  )
+  (layer3): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): CosLU()
+    )
+  )
+  (fc): Linear(in_features=64, out_features=10, bias=True)
+  (relu): CosLU()
+)
+)
+2024-12-13 00:25:13,199 | INFO | 
+CrossEntropyLoss()
+2024-12-13 00:25:31,153 | INFO | 
+model:
+  name: ResNet8WithConvMixerEmbedding
+  architecture:
+    in_channels: 3
+    out_channels: 10
+    activation: CosLU
+    patch_size: 1
+    depth: 4
+    kernel_size: 3
+optimizer:
+  name: SGD
+  parameters:
+    lr: 0.1
+    weight_decay: 0.0001
+    momentum: 0.9
+scheduler:
+  num: 1
+  scheduler0:
+    name: MultiStepLR
+    parameters:
+      milestones: [45, 65]
+      gamma: 0.1
+dataset:
+  name: CIFAR10
+  batch_size: 128
+  split:
+    train: 0.9
+    valid: 0.1
+    test: 1.0
+train:
+  epochs: 90
+  device: cuda:0
+  save_path: ./checkpoints/coslu/cifar10/
+  log_path: ./logs/coslu/cifar10/
+  seed: 42
+  save_every: 10
+test:
+  device: cuda:0
+  checkpoint: ./checkpoints/coslu/cifar10/
+  log_path: ./logs/coslu/cifar10/
+  seed: 42
+2024-12-13 00:25:31,156 | INFO | 
+ResNet8WithConvMixerEmbedding(
+  Patch Embedding: ConvMixerPatchEmbedding(
+  (patch_embedding): Conv2d(3, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  (bn): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (blocks): Sequential(
+    (0): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (1): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (2): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (3): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+)
+  ResNet Model: ResNetCifar(
+  (conv1): Identity()
+  (layer1): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): Sequential()
+      (relu): CosLU()
+    )
+  )
+  (layer2): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): CosLU()
+    )
+  )
+  (layer3): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): CosLU()
+    )
+  )
+  (fc): Linear(in_features=64, out_features=10, bias=True)
+  (relu): CosLU()
+)
+)
+2024-12-13 00:25:31,161 | INFO | 
+CrossEntropyLoss()
+2024-12-13 00:26:16,775 | INFO | 
+model:
+  name: ResNet8WithConvMixerEmbedding
+  architecture:
+    in_channels: 3
+    out_channels: 10
+    activation: CosLU
+    patch_size: 1
+    depth: 4
+    kernel_size: 3
+optimizer:
+  name: SGD
+  parameters:
+    lr: 0.1
+    weight_decay: 0.0001
+    momentum: 0.9
+scheduler:
+  num: 1
+  scheduler0:
+    name: MultiStepLR
+    parameters:
+      milestones: [45, 65]
+      gamma: 0.1
+dataset:
+  name: CIFAR10
+  batch_size: 128
+  split:
+    train: 0.9
+    valid: 0.1
+    test: 1.0
+train:
+  epochs: 90
+  device: cuda:0
+  save_path: ./checkpoints/coslu/cifar10/
+  log_path: ./logs/coslu/cifar10/
+  seed: 42
+  save_every: 10
+test:
+  device: cuda:0
+  checkpoint: ./checkpoints/coslu/cifar10/
+  log_path: ./logs/coslu/cifar10/
+  seed: 42
+2024-12-13 00:26:16,778 | INFO | 
+ResNet8WithConvMixerEmbedding(
+  Patch Embedding: ConvMixerPatchEmbedding(
+  (patch_embedding): Conv2d(3, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  (bn): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (blocks): Sequential(
+    (0): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (1): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (2): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (3): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): CosLU()
+      (activation2): CosLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+)
+  ResNet Model: ResNetCifar(
+  (conv1): Identity()
+  (layer1): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): Sequential()
+      (relu): CosLU()
+    )
+  )
+  (layer2): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): CosLU()
+    )
+  )
+  (layer3): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): CosLU()
+    )
+  )
+  (fc): Linear(in_features=64, out_features=10, bias=True)
+  (relu): CosLU()
+)
+)
+2024-12-13 00:26:16,782 | INFO | 
+CrossEntropyLoss()
+2024-12-13 00:26:20,856 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=10_lv=1.02.pth test_loss: 0.9822 test_accuracy: 0.663 test_precision: 0.731 test_recall: 0.663 test_f1: 0.666
+2024-12-13 00:26:23,825 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=16_lv=0.70.pth test_loss: 0.6926 test_accuracy: 0.776 test_precision: 0.806 test_recall: 0.776 test_f1: 0.777
+2024-12-13 00:26:26,882 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=19_lv=0.59.pth test_loss: 0.5791 test_accuracy: 0.807 test_precision: 0.828 test_recall: 0.807 test_f1: 0.805
+2024-12-13 00:26:29,819 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=1_lv=1.53.pth test_loss: 1.4786 test_accuracy: 0.471 test_precision: 0.534 test_recall: 0.471 test_f1: 0.446
+2024-12-13 00:26:32,855 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=20_lv=0.72.pth test_loss: 0.6866 test_accuracy: 0.772 test_precision: 0.813 test_recall: 0.772 test_f1: 0.775
+2024-12-13 00:26:36,188 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=2_lv=1.15.pth test_loss: 1.1100 test_accuracy: 0.604 test_precision: 0.650 test_recall: 0.604 test_f1: 0.603
+2024-12-13 00:26:39,363 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=30_lv=0.86.pth test_loss: 0.8762 test_accuracy: 0.745 test_precision: 0.797 test_recall: 0.745 test_f1: 0.747
+2024-12-13 00:26:42,455 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=40_lv=1.21.pth test_loss: 1.1606 test_accuracy: 0.581 test_precision: 0.735 test_recall: 0.581 test_f1: 0.564
+2024-12-13 00:26:45,567 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=41_lv=0.53.pth test_loss: 0.5258 test_accuracy: 0.827 test_precision: 0.844 test_recall: 0.827 test_f1: 0.827
+2024-12-13 00:26:48,691 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=46_lv=0.43.pth test_loss: 0.4245 test_accuracy: 0.867 test_precision: 0.875 test_recall: 0.867 test_f1: 0.866
+2024-12-13 00:26:51,823 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=47_lv=0.42.pth test_loss: 0.4127 test_accuracy: 0.861 test_precision: 0.871 test_recall: 0.861 test_f1: 0.861
+2024-12-13 00:26:54,894 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=50_lv=0.48.pth test_loss: 0.4645 test_accuracy: 0.858 test_precision: 0.870 test_recall: 0.858 test_f1: 0.859
+2024-12-13 00:26:58,015 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=51_lv=0.38.pth test_loss: 0.3977 test_accuracy: 0.872 test_precision: 0.880 test_recall: 0.872 test_f1: 0.872
+2024-12-13 00:27:01,276 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=5_lv=1.05.pth test_loss: 1.0086 test_accuracy: 0.643 test_precision: 0.711 test_recall: 0.643 test_f1: 0.634
+2024-12-13 00:27:04,332 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=60_lv=0.44.pth test_loss: 0.4496 test_accuracy: 0.862 test_precision: 0.872 test_recall: 0.862 test_f1: 0.862
+2024-12-13 00:27:07,406 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=66_lv=0.38.pth test_loss: 0.3979 test_accuracy: 0.873 test_precision: 0.881 test_recall: 0.873 test_f1: 0.873
+2024-12-13 00:27:10,626 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=68_lv=0.38.pth test_loss: 0.4027 test_accuracy: 0.873 test_precision: 0.881 test_recall: 0.873 test_f1: 0.872
+2024-12-13 00:27:13,563 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=70_lv=0.38.pth test_loss: 0.3983 test_accuracy: 0.874 test_precision: 0.882 test_recall: 0.874 test_f1: 0.874
+2024-12-13 00:27:16,599 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=77_lv=0.38.pth test_loss: 0.4028 test_accuracy: 0.874 test_precision: 0.882 test_recall: 0.874 test_f1: 0.873
+2024-12-13 00:27:19,706 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=7_lv=0.83.pth test_loss: 0.7892 test_accuracy: 0.727 test_precision: 0.754 test_recall: 0.727 test_f1: 0.720
+2024-12-13 00:27:22,819 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=80_lv=0.38.pth test_loss: 0.3997 test_accuracy: 0.874 test_precision: 0.882 test_recall: 0.874 test_f1: 0.874
+2024-12-13 00:27:25,911 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=89_lv=0.38.pth test_loss: 0.4042 test_accuracy: 0.873 test_precision: 0.881 test_recall: 0.873 test_f1: 0.873
+2024-12-13 00:27:29,019 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=90_lv=0.38.pth test_loss: 0.4030 test_accuracy: 0.873 test_precision: 0.881 test_recall: 0.873 test_f1: 0.872
+2024-12-13 00:27:32,151 | INFO | cuda:0 ckpt: ./checkpoints/coslu/cifar10/resnet8withconvmixerembedding/ep=9_lv=0.71.pth test_loss: 0.7067 test_accuracy: 0.750 test_precision: 0.798 test_recall: 0.750 test_f1: 0.751
+2024-12-13 00:27:32,151 | INFO | total_time: 74.354 sec

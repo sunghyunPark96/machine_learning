@@ -1,0 +1,152 @@
+2024-12-13 00:22:06,575 | INFO | 
+model:
+  name: ResNet8WithConvMixerEmbedding
+  architecture:
+    in_channels: 3
+    out_channels: 10
+    activation: ShiLU
+    patch_size: 1
+    depth: 4
+    kernel_size: 3
+optimizer:
+  name: SGD
+  parameters:
+    lr: 0.1
+    weight_decay: 0.0001
+    momentum: 0.9
+scheduler:
+  num: 1
+  scheduler0:
+    name: MultiStepLR
+    parameters:
+      milestones: [45, 65]
+      gamma: 0.1
+dataset:
+  name: CIFAR10
+  batch_size: 128
+  split:
+    train: 0.9
+    valid: 0.1
+    test: 1.0
+train:
+  epochs: 90
+  device: cuda:0
+  save_path: ./checkpoints/shilu/cifar10/
+  log_path: ./logs/shilu/cifar10/
+  seed: 42
+  save_every: 10
+test:
+  device: cuda:0
+  checkpoint: ./checkpoints/shilu/cifar10/
+  log_path: ./logs/shilu/cifar10/
+  seed: 42
+2024-12-13 00:22:06,577 | INFO | 
+ResNet8WithConvMixerEmbedding(
+  Patch Embedding: ConvMixerPatchEmbedding(
+  (patch_embedding): Conv2d(3, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  (bn): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (blocks): Sequential(
+    (0): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): ShiLU()
+      (activation2): ShiLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (1): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): ShiLU()
+      (activation2): ShiLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (2): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): ShiLU()
+      (activation2): ShiLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (3): ConvMixerBlock(
+      (depthwise_conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (pointwise_conv): Conv2d(16, 16, kernel_size=(1, 1), stride=(1, 1))
+      (activation1): ShiLU()
+      (activation2): ShiLU()
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+)
+  ResNet Model: ResNetCifar(
+  (conv1): Identity()
+  (layer1): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): Sequential()
+      (relu): ShiLU()
+    )
+  )
+  (layer2): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(16, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): ShiLU()
+    )
+  )
+  (layer3): Sequential(
+    (0): BasicBlockCifar(
+      (conv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (shortcut): LambdaLayerCifar()
+      (relu): ShiLU()
+    )
+  )
+  (fc): Linear(in_features=64, out_features=10, bias=True)
+  (relu): ShiLU()
+)
+)
+2024-12-13 00:22:06,582 | INFO | 
+CrossEntropyLoss()
+2024-12-13 00:22:10,674 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=10_lv=0.74.pth test_loss: 0.7110 test_accuracy: 0.752 test_precision: 0.781 test_recall: 0.752 test_f1: 0.752
+2024-12-13 00:22:13,563 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=12_lv=0.63.pth test_loss: 0.6195 test_accuracy: 0.792 test_precision: 0.808 test_recall: 0.792 test_f1: 0.792
+2024-12-13 00:22:16,360 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=13_lv=0.63.pth test_loss: 0.6057 test_accuracy: 0.795 test_precision: 0.809 test_recall: 0.795 test_f1: 0.794
+2024-12-13 00:22:19,073 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=17_lv=0.62.pth test_loss: 0.6125 test_accuracy: 0.792 test_precision: 0.823 test_recall: 0.792 test_f1: 0.795
+2024-12-13 00:22:21,924 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=18_lv=0.61.pth test_loss: 0.5737 test_accuracy: 0.800 test_precision: 0.817 test_recall: 0.800 test_f1: 0.800
+2024-12-13 00:22:24,753 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=1_lv=1.87.pth test_loss: 1.8152 test_accuracy: 0.402 test_precision: 0.469 test_recall: 0.402 test_f1: 0.361
+2024-12-13 00:22:27,687 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=20_lv=0.62.pth test_loss: 0.6031 test_accuracy: 0.791 test_precision: 0.812 test_recall: 0.791 test_f1: 0.791
+2024-12-13 00:22:31,074 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=21_lv=0.61.pth test_loss: 0.5561 test_accuracy: 0.808 test_precision: 0.832 test_recall: 0.808 test_f1: 0.811
+2024-12-13 00:22:35,022 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=23_lv=0.58.pth test_loss: 0.5690 test_accuracy: 0.805 test_precision: 0.834 test_recall: 0.805 test_f1: 0.807
+2024-12-13 00:22:38,350 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=27_lv=0.57.pth test_loss: 0.5411 test_accuracy: 0.816 test_precision: 0.832 test_recall: 0.816 test_f1: 0.816
+2024-12-13 00:22:42,419 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=2_lv=1.51.pth test_loss: 1.4780 test_accuracy: 0.501 test_precision: 0.555 test_recall: 0.501 test_f1: 0.466
+2024-12-13 00:22:46,512 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=30_lv=0.55.pth test_loss: 0.5287 test_accuracy: 0.821 test_precision: 0.835 test_recall: 0.821 test_f1: 0.818
+2024-12-13 00:22:50,499 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=35_lv=0.54.pth test_loss: 0.5135 test_accuracy: 0.825 test_precision: 0.837 test_recall: 0.825 test_f1: 0.824
+2024-12-13 00:22:54,241 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=39_lv=0.50.pth test_loss: 0.5200 test_accuracy: 0.827 test_precision: 0.840 test_recall: 0.827 test_f1: 0.827
+2024-12-13 00:22:57,219 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=3_lv=1.39.pth test_loss: 1.3417 test_accuracy: 0.543 test_precision: 0.612 test_recall: 0.543 test_f1: 0.514
+2024-12-13 00:23:00,051 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=40_lv=0.62.pth test_loss: 0.6103 test_accuracy: 0.799 test_precision: 0.828 test_recall: 0.799 test_f1: 0.798
+2024-12-13 00:23:03,033 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=46_lv=0.45.pth test_loss: 0.4157 test_accuracy: 0.862 test_precision: 0.870 test_recall: 0.862 test_f1: 0.861
+2024-12-13 00:23:05,898 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=47_lv=0.44.pth test_loss: 0.4173 test_accuracy: 0.860 test_precision: 0.869 test_recall: 0.860 test_f1: 0.860
+2024-12-13 00:23:08,837 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=48_lv=0.44.pth test_loss: 0.4119 test_accuracy: 0.862 test_precision: 0.871 test_recall: 0.862 test_f1: 0.862
+2024-12-13 00:23:12,323 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=49_lv=0.43.pth test_loss: 0.4120 test_accuracy: 0.864 test_precision: 0.871 test_recall: 0.864 test_f1: 0.863
+2024-12-13 00:23:15,953 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=4_lv=1.03.pth test_loss: 0.9718 test_accuracy: 0.672 test_precision: 0.704 test_recall: 0.672 test_f1: 0.674
+2024-12-13 00:23:19,021 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=50_lv=0.44.pth test_loss: 0.4161 test_accuracy: 0.864 test_precision: 0.872 test_recall: 0.864 test_f1: 0.864
+2024-12-13 00:23:21,747 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=51_lv=0.43.pth test_loss: 0.4181 test_accuracy: 0.863 test_precision: 0.870 test_recall: 0.863 test_f1: 0.862
+2024-12-13 00:23:24,731 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=57_lv=0.42.pth test_loss: 0.4263 test_accuracy: 0.863 test_precision: 0.872 test_recall: 0.863 test_f1: 0.863
+2024-12-13 00:23:27,917 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=5_lv=0.87.pth test_loss: 0.8571 test_accuracy: 0.687 test_precision: 0.729 test_recall: 0.687 test_f1: 0.682
+2024-12-13 00:23:30,883 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=60_lv=0.45.pth test_loss: 0.4239 test_accuracy: 0.863 test_precision: 0.872 test_recall: 0.863 test_f1: 0.863
+2024-12-13 00:23:33,913 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=70_lv=0.45.pth test_loss: 0.4237 test_accuracy: 0.866 test_precision: 0.874 test_recall: 0.866 test_f1: 0.866
+2024-12-13 00:23:37,003 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=80_lv=0.44.pth test_loss: 0.4248 test_accuracy: 0.866 test_precision: 0.874 test_recall: 0.866 test_f1: 0.866
+2024-12-13 00:23:40,116 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=8_lv=0.83.pth test_loss: 0.8094 test_accuracy: 0.726 test_precision: 0.759 test_recall: 0.726 test_f1: 0.727
+2024-12-13 00:23:43,239 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=90_lv=0.43.pth test_loss: 0.4304 test_accuracy: 0.867 test_precision: 0.875 test_recall: 0.867 test_f1: 0.867
+2024-12-13 00:23:46,359 | INFO | cuda:0 ckpt: ./checkpoints/shilu/cifar10/resnet8withconvmixerembedding/ep=9_lv=0.72.pth test_loss: 0.7034 test_accuracy: 0.759 test_precision: 0.783 test_recall: 0.759 test_f1: 0.755
+2024-12-13 00:23:46,359 | INFO | total_time: 98.754 sec
