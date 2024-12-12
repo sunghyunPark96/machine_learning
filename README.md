@@ -18,4 +18,6 @@ Papaer Accuracy : 0.904
 <button onclick="copyToClipboard('code2')" style="position: absolute; top: 5px; right: 10px; background: #007bff; color: white; border: none; border-radius: 4px; padding: 5px; cursor: pointer;">
 </div>  
 
+
+  
 참조 링크 : https://github.com/epishchik/TrainableActivation 
