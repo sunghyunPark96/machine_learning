@@ -6,22 +6,26 @@ Max Accuracy : 0.899
 Papaer Accuracy : 0.904  
 ![TEST](https://github.com/user-attachments/assets/5b40b0cd-052d-4c3f-a6ff-ef46002fa2d0)
 
-<div style="position: relative;">
-  <pre>
-    <code id="code-block">
-python test.py --config configs/coslu/cifar10/resnet20.yaml
-    </code>
-  </pre>
-  <button onclick="copyToClipboard('code-block')" style="position: absolute; top: 0; right: 0;">Copy</button>
-</div>  
+<div style="position: relative; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px; padding: 10px; font-family: monospace;">
+<code id="code1">python test.py --config configs/coslu/cifar10/resnet20.yaml</code>
+<button onclick="copyToClipboard('code1')" style="position: absolute; top: 5px; right: 10px; background: #007bff; color: white; border: none; border-radius: 4px; padding: 5px; cursor: pointer;">Copy</button>
+</div>
 
 2) Resnet-8 & CosLU & Patch-embedding & Convmixer-Layer 모델 개선 코드는 improve에 구현하였습니다.  
-<div style="position: relative;">
-  <pre>
-    <code id="code-block">
-python test.py --config configs/coslu/cifar10/resnet8_convmixer.yaml
-    </code>
-  </pre>
-  <button onclick="copyToClipboard('code-block')" style="position: absolute; top: 0; right: 0;">Copy</button>
-</div>  
+   <div style="position: relative; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px; padding: 10px; font-family: monospace;">
+     <code id="code2">python test.py --config configs/coslu/cifar10/resnet8_convmixer.yaml</code>
+     <button onclick="copyToClipboard('code2')" style="position: absolute; top: 5px; right: 10px; background: #007bff; color: white; border: none; border-radius: 4px; padding: 5px; cursor: pointer;">Copy</button>
+   </div>
+   
 참조 링크 : https://github.com/epishchik/TrainableActivation  
+
+<script>
+  function copyToClipboard(id) {
+    var copyText = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(copyText).then(() => {
+      alert('Copied to clipboard!');
+    }).catch(err => {
+      alert('Failed to copy text: ', err);
+    });
+  }
+</script>
